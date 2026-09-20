@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mock servers vs OpenAPI examples — MockDeck</title>
+<meta name="description" content="When static fixtures are enough, and when a generated mock is worth the extra setup.">
+<link rel="canonical" href="https://apimock.lxsaihub.com/blog/mock-servers-vs-openapi-examples-2026.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mock servers vs OpenAPI examples">
+<meta property="og:url" content="https://apimock.lxsaihub.com/blog/mock-servers-vs-openapi-examples-2026.html">
+<meta property="og:site_name" content="MockDeck (LX AI)">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mock servers vs OpenAPI examples", "description": "When static fixtures are enough, and when a generated mock is worth the extra setup.", "inLanguage": "en", "url": "https://apimock.lxsaihub.com/blog/mock-servers-vs-openapi-examples-2026.html", "datePublished": "2026-09-20", "dateModified": "2026-09-20", "author": {"@type": "Organization", "name": "MockDeck (LX AI)"}, "publisher": {"@type": "Organization", "name": "MockDeck (LX AI)", "url": "https://apimock.lxsaihub.com/"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://apimock.lxsaihub.com/blog/mock-servers-vs-openapi-examples-2026.html"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do we need both?", "acceptedAnswer": {"@type": "Answer", "text": "Usually. Examples for the docs, a mock for the integration work. They can come from the same specification."}}, {"@type": "Question", "name": "Can examples replace a mock?", "acceptedAnswer": {"@type": "Answer", "text": "Not once code is making requests — an example cannot answer one."}}, {"@type": "Question", "name": "Does MockDeck run the mock server?", "acceptedAnswer": {"@type": "Answer", "text": "No. It generates the specification and sample responses; serving them is a separate step."}}, {"@type": "Question", "name": "How do we stop the mock drifting from the real API?", "acceptedAnswer": {"@type": "Answer", "text": "Validate real traffic against the contract in CI. A mock that nobody checks becomes fiction."}}, {"@type": "Question", "name": "Are the sample responses production data?", "acceptedAnswer": {"@type": "Answer", "text": "No. They are generated to look realistic and should be treated as test data."}}, {"@type": "Question", "name": "Which format should we start with?", "acceptedAnswer": {"@type": "Answer", "text": "OpenAPI 3 if you want tooling support; Postman if your team already works there; raw routes if you only need something to call."}}]}</script>
+<style>*{box-sizing:border-box}body{margin:0;font-family:Georgia,Times,serif;color:#0f172a;line-height:1.7;background:#fff}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}.by{color:#0f766e;font-weight:700;letter-spacing:.02em;text-transform:uppercase;font-size:12px}
+h1{font-size:32px;line-height:1.25;margin:.2em 0 .4em;font-family:system-ui,Segoe UI,sans-serif}h2{font-size:22px;margin:1.6em 0 .5em}h3{font-size:17px;margin:1.1em 0 .2em}
+p{margin:.6em 0}a{color:#0f766e}ul,ol{padding-left:1.2em}
+.cta{display:inline-block;margin-top:1.4em;padding:12px 22px;border-radius:8px;background:#0f766e;color:#fff;text-decoration:none;font-weight:700}
+.card{border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin:12px 0}
+.meta{color:#64748b;font-size:13px}nav a{margin-right:1em}
+.tk{background:#f0fdfa;border:1px solid #ccfbf1;border-radius:10px;padding:16px 18px;margin:18px 0}
+.tk p.tkh{font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#0f766e;margin:0 0 8px}
+.tk ul{margin:0;padding-left:1.2em}
+blockquote{margin:1.1em 0;padding:.7em 1em;background:#f8fafc;border-left:4px solid #0f766e;color:#334155;font-style:italic}
+</style></head>
+<body><div class="wrap">
+<p class="by">by MockDeck (LX AI)</p>
+<p class="meta"><a href="https://apimock.lxsaihub.com/blog/">Blog</a> · <a href="https://apimock.lxsaihub.com/">Home</a></p>
+<h1>Mock servers vs OpenAPI examples</h1>
+<p><strong><em>OpenAPI examples</em> are sample payloads embedded in a specification: static, precise, and ideal for documentation. A <em>mock</em> responds to requests, which is what you need once the frontend is actually calling something. The choice is not which is better — it is which stage you are at.</strong></p>
+<div class="tk"><p class="tkh">Key takeaways</p><ul>
+<li>Examples are for reading; mocks are for calling. Documentation and integration need different things.</li>
+<li>Examples drift silently because nothing exercises them; mocks drift loudly, because a request fails.</li>
+<li>Generating a mock from a description is fastest when the endpoint does not exist yet.</li>
+</ul></div>
+<h2>Where each one wins</h2>
+<ul>
+<li><strong>Examples.</strong> Documentation, review, and SDK generation. Precise payloads with no moving parts.</li>
+<li><strong>Mocks.</strong> Frontend integration, demos, and testing states that are hard to reproduce against a real backend.</li>
+</ul>
+<h2>How to choose</h2>
+<ol>
+<li>If the consumer is a person reading docs, write examples.</li>
+<li>If the consumer is code making requests, generate a mock.</li>
+<li>If the endpoint does not exist yet, describe it and mock it — that is the fastest path to a working frontend.</li>
+<li>Once the backend exists, keep the contract and validate real traffic against it.</li>
+</ol>
+<h2>How MockDeck fits</h2>
+<p>Describe the endpoint and MockDeck produces the mock API spec — OpenAPI 3, Postman, or raw routes — with realistic sample responses. Start from that spec, keep the examples in it for documentation, and serve the mock while the backend catches up.</p>
+<h2>Frequently asked questions</h2>
+<h3>Do we need both?</h3>
+<p>Usually. Examples for the docs, a mock for the integration work. They can come from the same specification.</p>
+<h3>Can examples replace a mock?</h3>
+<p>Not once code is making requests — an example cannot answer one.</p>
+<h3>Does MockDeck run the mock server?</h3>
+<p>No. It generates the specification and sample responses; serving them is a separate step.</p>
+<h3>How do we stop the mock drifting from the real API?</h3>
+<p>Validate real traffic against the contract in CI. A mock that nobody checks becomes fiction.</p>
+<h3>Are the sample responses production data?</h3>
+<p>No. They are generated to look realistic and should be treated as test data.</p>
+<h3>Which format should we start with?</h3>
+<p>OpenAPI 3 if you want tooling support; Postman if your team already works there; raw routes if you only need something to call.</p>
+<h2>References</h2><ul>
+<li><a href="https://spec.openapis.org/oas/latest.html" rel="nofollow noopener" target="_blank">OpenAPI Specification</a></li>
+<li><a href="https://json-schema.org/" rel="nofollow noopener" target="_blank">JSON Schema</a></li>
+</ul>
+<p>Try the product: <a class="cta" href="https://apimock.lxsaihub.com/">MockDeck</a></p>
+<p class="meta">2026-09-20 · primary sources only · no fabricated traffic metrics · decision-support only</p>
+</div>
+<section class="related" aria-label="Related articles">
+  <h2>Related articles</h2>
+  <ul>
+        <li><a href="/blog/contract-first-api-mocks-2026.html">Contract-first API mocks</a></li>
+          <li><a href="https://lxsaihub.com/blog/topic-matrix.html">Explore the full AI micro-SaaS topic matrix &#8594;</a></li>
+</ul>
+</section>
+</body></html>

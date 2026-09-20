@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# LLM / AI answer-engine indexing
+LLM-Content: https://apimock.lxsaihub.com/llms.txt
+Sitemap: https://apimock.lxsaihub.com/sitemap.xml
